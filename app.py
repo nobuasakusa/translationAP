@@ -14,17 +14,16 @@ OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
 # 翻訳を行う関数
 def translate_text(input_text, source_lang, target_lang):
     try:
-        prompt = (
-            f"Translate the following text from {source_lang} to {target_lang}:\n"
-            f"\n{input_text}"
-        )
         headers = {
             "Authorization": f"Bearer {OPENAI_API_KEY}",
             "Content-Type": "application/json"
         }
         payload = {
-            "prompt": prompt,
             "model": "gpt-4o",
+            "messages": [
+                {"role": "system", "content": f"You are a translation assistant."},
+                {"role": "user", "content": f"Translate this text from {source_lang} to {target_lang}: {input_text}"},
+            ],
             "max_tokens_to_sample": 1000,
             "temperature": 0
         }
