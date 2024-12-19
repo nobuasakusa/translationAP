@@ -1,8 +1,13 @@
 import streamlit as st
 import openai
+from dotenv import load_dotenv
+import os
 
-# OpenAI APIキーを設定します
-openai.api_key = "your_openai_api_key"
+# .envファイルから環境変数を読み込む
+load_dotenv()
+
+# APIキーを取得
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # 翻訳を行う関数
 def translate_text(input_text, source_lang, target_lang):
