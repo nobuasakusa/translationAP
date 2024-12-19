@@ -1,5 +1,5 @@
 import streamlit as st
-import openai
+import anthropic
 from dotenv import load_dotenv
 import os
 
@@ -7,7 +7,7 @@ import os
 load_dotenv()
 
 # APIキーを取得
-openai.api_key = os.getenv("OPENAI_API_KEY")
+API_KEY_Claude = os.getenv("ANTHROPIC_API_KEY")
 
 # 翻訳を行う関数
 def translate_text(input_text, source_lang, target_lang):
@@ -16,11 +16,13 @@ def translate_text(input_text, source_lang, target_lang):
             f"Translate the following text from {source_lang} to {target_lang}:\n"
             f"\n{input_text}"
         )
+        client = anthropic.Anthropic(api_key=API_KEY_Claude
+        )
         response = openai.Completion.create(
-            engine="text-davinci-003",
+            model="claude-3-opus-latest",
             prompt=prompt,
             max_tokens=1000,
-            temperature=0.3
+            temperature=0
         )
         return response.choices[0].text.strip()
     except Exception as e:
