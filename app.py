@@ -22,12 +22,12 @@ def translate_text(input_text, source_lang, target_lang):
             "Authorization": f"Bearer {OPENAI_API_KEY}",
             "Content-Type": "application/json"
         }
-         payload = {
+        payload = {
             "prompt": prompt,
             "model": "gpt-4o",
             "max_tokens_to_sample": 1000,
             "temperature": 0
-         }
+        }
         response = requests.post(OPENAI_API_URL, headers=headers, json=payload)
         response_data = response.json()
         if response.status_code == 200:
