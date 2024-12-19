@@ -1,5 +1,5 @@
 import streamlit as st
-import anthropic
+import openai
 from dotenv import load_dotenv
 import os
 import requests
@@ -8,8 +8,8 @@ import requests
 load_dotenv()
 
 # APIキーを取得
-CLAUDE_API_KEY = os.getenv("CLAUDE_API_KEY")
-CLAUDE_API_URL = "https://api.anthropic.com/v1/complete"
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
 
 # 翻訳を行う関数
 def translate_text(input_text, source_lang, target_lang):
@@ -19,16 +19,16 @@ def translate_text(input_text, source_lang, target_lang):
             f"\n{input_text}"
         )
         headers = {
-            "Authorization": f"Bearer {CLAUDE_API_KEY}",
+            "Authorization": f"Bearer {OPENAI_API_KEY}",
             "Content-Type": "application/json"
         }
          payload = {
             "prompt": prompt,
-            "model": "claude-3-opus-latest",
+            "model": "gpt-4o",
             "max_tokens_to_sample": 1000,
             "temperature": 0
          }
-        response = requests.post(CLAUDE_API_URL, headers=headers, json=payload)
+        response = requests.post(OPENAI_API_URL, headers=headers, json=payload)
         response_data = response.json()
         if response.status_code == 200:
             return response_data["completion"].strip()
