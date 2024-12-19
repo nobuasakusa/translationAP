@@ -34,7 +34,6 @@ def translate_text(input_text, source_lang, target_lang):
             return response_data["completion"].strip()
         else:
             return f"Error: {response_data.get('error', 'Unknown error')}"
-        )
         return response.choices[0].text.strip()
     except Exception as e:
         return f"Error: {e}"
